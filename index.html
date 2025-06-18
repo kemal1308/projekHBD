@@ -1,91 +1,101 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Ulang Tahun, Babyy!</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selamat Ulang Tahun, Babyy!</title>
+  <link rel="stylesheet" href="style.css" />
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+  <audio id="background-music" loop>
+    <source src="how-deep-is-your-love.mp3" type="audio/mpeg" />
+    Browser kamu tidak mendukung elemen audio.
+  </audio>
+  
+  <div class="hearts-container"></div>
 
-    <audio id="background-music" loop>
-        <source src="how-deep-is-your-love.mp3" type="audio/mpeg">
-        Browser kamu tidak mendukung elemen audio.
-    </audio>
-    <div class="hearts-container"></div>
-
-    <div class="card">
-        <div id="intro">
-            <h1>Untuk Kamu yang Paling Spesial,</h1>
-            <p>Shasha Tersayang</p>
-            <button id="open-button">🎁 Buka Kado Spesial Untukmu 🎁</button>
-        </div>
-
-        <div id="content" style="display: none;">
-            <h2>Selamat Ulang Tahun, Babyy! ❤️</h2>
-            <p class="message">Semoga di hari yang spesial ini, kamu selalu diberikan kebahagiaan, kesehatan, dan semua yang terbaik. Video ini mungkin sederhana, tapi dibuat dengan segenap cinta untukmu.</p>
-            
-            <div class="video-container">
-                <iframe width="560" height="315"
-    src="https://www.youtube.com/embed/yqpxjw3GOqM"
-    title="YouTube video player" frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-
-            </div>
-
-            <p class="message">Aku harap kamu suka. I love you more than words can say.</p>
-            <h3>Dari lubuk hati terdalam, <br> Moi yang kamu sayang</h3>
-        </div>
+  <div class="card">
+    <div id="intro">
+      <h1>Untuk Kamu yang Paling Spesial,</h1>
+      <p>Shasha Tersayang</p>
+      <button id="open-button" style="display: none;">🎁 Buka Kado Spesial Untukmu 🎁</button>
     </div>
 
-    <script>
-        const openButton = document.getElementById('open-button');
-        const introDiv = document.getElementById('intro');
-        const contentDiv = document.getElementById('content');
-        
-        // =======================================================
-        // INI BARIS BARU: Ambil elemen audio dari HTML
-        const backgroundMusic = document.getElementById('background-music');
-        // =======================================================
+    <div id="content" style="display: none;">
+      <h2>Selamat Ulang Tahun, Babyy! ❤️</h2>
+      <p class="message">Semoga di hari yang spesial ini, kamu selalu diberikan kebahagiaan, kesehatan, dan semua yang terbaik. Video ini mungkin sederhana, tapi dibuat dengan segenap cinta untukmu.</p>
+      <div class="video-container">
+        <iframe width="560" height="315"
+          src="https://www.youtube.com/embed/AZvh1eC7l0s
+"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="message">Aku harap kamu suka. I love you more than words can say.</p>
+      <h3>Dari lubuk hati terdalam, <br /> Moi yang kamu sayang</h3>
+    </div>
+  </div>
 
-        openButton.addEventListener('click', function() {
-            // =======================================================
-            // INI BARIS BARU: Perintah untuk memulai lagu
-            backgroundMusic.play();
-            // =======================================================
+  <!-- Modal pop up -->
+  <div id="loveModal" class="modal">
+    <div class="modal-content">
+      <p>Babyy sayaang moii engga?</p>
+      <button id="yesButton">akuu sayang banget samaa moi 💖</button>
+      <button id="noButton" disabled style="opacity: 0.5;">g 🙅‍♀️</button>
+    </div>
+  </div>
 
-            // Menjalankan animasi konfeti
-            confetti({
-                particleCount: 150,
-                spread: 120,
-                origin: { y: 0.6 },
-                colors: ['#ec407a', '#fce4ec', '#ffffff']
-            });
+  <script>
+    const openButton = document.getElementById('open-button');
+    const introDiv = document.getElementById('intro');
+    const contentDiv = document.getElementById('content');
+    const backgroundMusic = document.getElementById('background-music');
 
-            // Sembunyikan intro dan tampilkan konten setelah jeda singkat
-            setTimeout(() => {
-                introDiv.style.display = 'none';
-                contentDiv.style.display = 'block';
-            }, 300);
-        });
+    const modal = document.getElementById("loveModal");
+    const yesButton = document.getElementById("yesButton");
+    const noButton = document.getElementById("noButton");
 
-        // Membuat animasi hati berjatuhan
-        const heartsContainer = document.querySelector('.hearts-container');
-        for (let i = 0; i < 30; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-            heartsContainer.appendChild(heart);
-        }
-    </script>
+    // Klik tombol "Yes"
+    yesButton.addEventListener("click", () => {
+      alert("Aku juga sayang kamu banget, babyy! ❤️🥰");
+      modal.style.display = "none";
+      openButton.style.display = "inline-block";
+    });
+
+    // Tombol buka kado
+    openButton.addEventListener('click', function () {
+      backgroundMusic.play();
+
+      confetti({
+        particleCount: 150,
+        spread: 120,
+        origin: { y: 0.6 },
+        colors: ['#ec407a', '#fce4ec', '#ffffff']
+      });
+
+      setTimeout(() => {
+        introDiv.style.display = 'none';
+        contentDiv.style.display = 'block';
+      }, 300);
+    });
+
+    // Hati berjatuhan
+    const heartsContainer = document.querySelector('.hearts-container');
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+      heartsContainer.appendChild(heart);
+    });
+  </script>
 </body>
 </html>
