@@ -6,10 +6,9 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    /* Menambahkan padding agar kartu tidak menempel di ujung layar HP */
     padding: 20px 0; 
     margin: 0;
-    overflow-x: hidden; /* Mencegah scroll horizontal */
+    overflow-x: hidden;
     color: #444;
 }
 
@@ -19,14 +18,9 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     text-align: center;
-
-    /* --- PERUBAHAN UNTUK RESPONSIVE --- */
-    /* Dibuat fleksibel, lebar 90% dari layar, tapi tidak akan lebih dari 600px */
     width: 90%;
     max-width: 600px;
-    
     z-index: 10;
-    /* Menambahkan ini agar kartu bisa sedikit membesar/mengecil */
     box-sizing: border-box; 
 }
 
@@ -60,7 +54,7 @@ p {
     font-weight: normal;
 }
 
-#open-button {
+#open-button, #yes-button, #no-button {
     background-color: #ec407a;
     color: white;
     border: none;
@@ -71,13 +65,19 @@ p {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-top: 20px;
+    margin: 5px;
     letter-spacing: 0.5px;
 }
 
-#open-button:hover {
+#open-button:hover,
+#yes-button:hover {
     background-color: #d81b60;
     transform: scale(1.05);
+}
+
+#no-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .video-container {
@@ -100,7 +100,7 @@ p {
 }
 
 .hearts-container {
-    position: fixed; /* Diubah agar hati tetap jatuh saat di-scroll di HP */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -127,17 +127,11 @@ p {
     }
 }
 
-
-/* =================================================================== */
-/* --- ATURAN RESPONSIVE UNTUK LAYAR KECIL (DI BAWAH 600px) --- */
-/* =================================================================== */
 @media (max-width: 600px) {
-    /* Mengecilkan padding di dalam kartu agar konten lebih lega */
     .card {
         padding: 25px 20px;
     }
 
-    /* Mengecilkan semua ukuran font agar pas di layar HP */
     h1 {
         font-size: 1.8em;
     }
@@ -158,7 +152,7 @@ p {
         font-size: 1em;
     }
 
-    #open-button {
+    #open-button, #yes-button, #no-button {
         font-size: 1em;
         padding: 12px 24px;
     }
