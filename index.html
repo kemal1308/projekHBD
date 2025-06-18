@@ -1,100 +1,274 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Ulang Tahun, Babyy!</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Ulang Tahun, Babyy!</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      background-color: #fce4ec;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 0;
+      margin: 0;
+      overflow-x: hidden;
+      color: #444;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+      z-index: 10;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    h1 {
+      color: #c2185b;
+      font-size: 2.2em;
+      margin-bottom: 0.5em;
+    }
+
+    h2 {
+      color: #c2185b;
+      font-size: 2.5em;
+      animation: fadeInScale 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    h3 {
+      color: #ad1457;
+      font-size: 1.5em;
+      margin-top: 20px;
+      line-height: 1.4;
+    }
+
+    p {
+      font-size: 1.5em;
+      color: #555;
+      margin-top: 0;
+    }
+
+    .message {
+      font-size: 1.2em;
+      line-height: 1.6;
+      font-weight: normal;
+    }
+
+    #open-button {
+      background-color: #ec407a;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1em;
+      font-weight: 800;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-top: 20px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 5px 15px rgba(236, 64, 122, 0.4);
+    }
+
+    #open-button:hover {
+      background-color: #d81b60;
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(216, 27, 96, 0.6);
+    }
+
+    .video-container {
+      position: relative;
+      max-width: 320px;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      margin: 20px auto;
+      background-color: #ffe0e6;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 5px solid #ec407a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video-container iframe {
+      width: calc(100% - 10px);
+      height: calc(100% - 10px);
+      border-radius: 10px;
+      background-color: #000;
+    }
+
+    .video-container::before,
+    .video-container::after {
+      content: '💖';
+      position: absolute;
+      font-size: 1.8em;
+      z-index: 1;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+    }
+
+    .video-container::before {
+      top: -10px;
+      left: -10px;
+      transform: rotate(-15deg);
+    }
+
+    .video-container::after {
+      bottom: -10px;
+      right: -10px;
+      transform: rotate(15deg);
+    }
+
+    .hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      top: -50px;
+      font-size: 2rem;
+      animation: fall linear infinite;
+      opacity: 0.8;
+      text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    }
+
+    .heart::before {
+      content: '❤️';
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(105vh);
+      }
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 25px 20px; }
+      h1 { font-size: 1.8em; }
+      h2 { font-size: 2em; }
+      h3 { font-size: 1.2em; }
+      p { font-size: 1.2em; }
+      .message { font-size: 1em; }
+      #open-button { font-size: 1em; padding: 12px 24px; }
+      .video-container::before,
+      .video-container::after { font-size: 1.5em; }
+    }
+  </style>
 </head>
+
 <body>
+  <audio id="background-music" loop>
+    <source src="how-deep-is-your-love.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung elemen audio.
+  </audio>
 
-    <audio id="background-music" loop>
-        <source src="how-deep-is-your-love.mp3" type="audio/mpeg">
-        Browser kamu tidak mendukung elemen audio.
-    </audio>
+  <audio id="click-sound">
+    <source src="pop.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung elemen audio.
+  </audio>
 
-    <audio id="click-sound">
-        <source src="pop.mp3" type="audio/mpeg"> Browser kamu tidak mendukung elemen audio.
-    </audio>
+  <div class="hearts-container"></div>
 
-    <div class="hearts-container"></div>
-
-    <div class="card">
-        <div id="intro">
-            <h1>Untuk Kamu yang Paling Spesial,</h1>
-            <p>Shasha Tersayang</p>
-            <button id="open-button">🎁 Buka Kado Spesial Untukmu 🎁</button>
-        </div>
-
-        <div id="content" style="display: none;">
-            <h2 id="birthday-greeting">Selamat Ulang Tahun, Babyy! ❤️</h2>
-            <p class="message">Semoga di hari yang spesial ini, kamu selalu diberikan kebahagiaan, kesehatan, dan semua yang terbaik. Video ini mungkin sederhana, tapi dibuat dengan penuh cinta.</p>
-
-            <div class="video-container">
-    <iframe width="560" height="315"
-        src="https://www.youtube.com/embed/AZvh1eC7l0s"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-    </iframe>
-</div>
-
-            <p class="message">Aku harap kamu suka, Babyy. Biar kamu tau kalau aku sayang banget sama kamu.</p>
-            <h3>Dari lubuk hati yang terdalam, <br> Moi tercinta</h3>
-        </div>
+  <div class="card">
+    <div id="intro">
+      <h1>Untuk Kamu yang Paling Spesial,</h1>
+      <p>Shasha Tersayang</p>
+      <button id="open-button">🎁 Buka Kado Spesial Untukmu 🎁</button>
     </div>
 
-    <script>
-        const openButton = document.getElementById('open-button');
-        const introDiv = document.getElementById('intro');
-        const contentDiv = document.getElementById('content');
-        const backgroundMusic = document.getElementById('background-music');
-        const clickSound = document.getElementById('click-sound'); // Get the new sound element
-        const birthdayGreeting = document.getElementById('birthday-greeting'); // Get the h2 element
+    <div id="content" style="display: none;">
+      <h2 id="birthday-greeting">Selamat Ulang Tahun, Babyy! ❤️</h2>
+      <p class="message">Semoga di hari yang spesial ini, kamu selalu diberikan kebahagiaan, kesehatan, dan semua yang terbaik. Video ini mungkin sederhana, tapi dibuat dengan penuh cinta.</p>
 
-        openButton.addEventListener('click', function() {
-            // Play background music
-            backgroundMusic.play().catch(e => console.log("Background music play failed:", e)); // Add catch for autoplay policy
+      <div class="video-container">
+        <iframe id="video-frame" src="" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
 
-            // Play click sound
-            clickSound.play().catch(e => console.log("Click sound play failed:", e)); // Add catch for autoplay policy
+      <p class="message">Aku harap kamu suka, Babyy. Biar kamu tau kalau aku sayang banget sama kamu.</p>
+      <h3>Dari lubuk hati yang terdalam, <br> Moi tercinta</h3>
+    </div>
+  </div>
 
-            // Enhanced Confetti effect
-            confetti({
-                particleCount: 200, // More particles
-                spread: 150, // Wider spread
-                origin: { y: 0.6, x: 0.5 }, // From the center
-                colors: ['#ec407a', '#fce4ec', '#ffffff', '#ffd700', '#ff69b4'], // More colors including gold and hot pink
-                shapes: ['circle', 'square', 'star'], // Different shapes
-                scalar: 1.2 // Larger particles
-            });
+  <script>
+    const openButton = document.getElementById('open-button');
+    const introDiv = document.getElementById('intro');
+    const contentDiv = document.getElementById('content');
+    const backgroundMusic = document.getElementById('background-music');
+    const clickSound = document.getElementById('click-sound');
+    const birthdayGreeting = document.getElementById('birthday-greeting');
+    const videoFrame = document.getElementById('video-frame');
 
-            // Sembunyikan intro dan tampilkan konten setelah jeda singkat
-            setTimeout(() => {
-                introDiv.style.display = 'none';
-                contentDiv.style.display = 'block';
-                // Trigger animation for h2
-                birthdayGreeting.style.opacity = '1'; // Make it visible to start animation
-            }, 300);
-        });
+    openButton.addEventListener('click', function() {
+      backgroundMusic.play().catch(e => console.log("Background music play failed:", e));
+      clickSound.play().catch(e => console.log("Click sound play failed:", e));
 
-        // Membuat animasi hati berjatuhan
-        const heartsContainer = document.querySelector('.hearts-container');
-        for (let i = 0; i < 30; i++) { // Increased number of hearts
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-            heart.style.animationDelay = Math.random() * -5 + 's'; // Stagger the start of hearts
-            heart.style.fontSize = Math.random() * 1 + 1.5 + 'rem'; // Vary heart sizes
-            heartsContainer.appendChild(heart);
-        }
-    </script>
+      confetti({
+        particleCount: 200,
+        spread: 150,
+        origin: { y: 0.6, x: 0.5 },
+        colors: ['#ec407a', '#fce4ec', '#ffffff', '#ffd700', '#ff69b4'],
+        shapes: ['circle', 'square', 'star'],
+        scalar: 1.2
+      });
+
+      // Ganti src untuk autoplay + mute
+      videoFrame.src = "https://www.youtube.com/embed/AZvh1eC7l0s?autoplay=1&mute=1";
+
+      setTimeout(() => {
+        introDiv.style.display = 'none';
+        contentDiv.style.display = 'block';
+        birthdayGreeting.style.opacity = '1';
+      }, 300);
+    });
+
+    const heartsContainer = document.querySelector('.hearts-container');
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+      heart.style.animationDelay = Math.random() * -5 + 's';
+      heart.style.fontSize = Math.random() * 1 + 1.5 + 'rem';
+      heartsContainer.appendChild(heart);
+    }
+  </script>
 </body>
 </html>
