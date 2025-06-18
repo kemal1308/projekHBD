@@ -22,6 +22,7 @@ body {
     max-width: 600px;
     z-index: 10;
     box-sizing: border-box;
+    position: relative;
 }
 
 h1 {
@@ -33,6 +34,8 @@ h1 {
 h2 {
     color: #c2185b;
     font-size: 2.5em;
+    animation: fadeInScale 1s ease-out forwards;
+    opacity: 0;
 }
 
 h3 {
@@ -54,7 +57,7 @@ p {
     font-weight: normal;
 }
 
-#open-button, #yes-button, #no-button, #ask-button { /* Added #ask-button here */
+#open-button {
     background-color: #ec407a;
     color: white;
     border: none;
@@ -65,20 +68,15 @@ p {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    margin: 5px;
+    margin-top: 20px;
     letter-spacing: 0.5px;
+    box-shadow: 0 5px 15px rgba(236, 64, 122, 0.4);
 }
 
-#open-button:hover,
-#yes-button:hover,
-#ask-button:hover { /* Added #ask-button here */
+#open-button:hover {
     background-color: #d81b60;
     transform: scale(1.05);
-}
-
-#no-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    box-shadow: 0 8px 20px rgba(216, 27, 96, 0.6);
 }
 
 .video-container {
@@ -87,18 +85,68 @@ p {
     width: 100%;
     aspect-ratio: 9 / 16;
     margin: 20px auto;
-    background-color: #eee;
+    background-color: #ffe0e6; /* Warna pink muda untuk latar belakang frame */
     border-radius: 15px;
-    overflow: hidden;
+    overflow: hidden; /* Pastikan hati tidak keluar dari border radius utama */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 5px solid #ec407a; /* Border pink yang lebih tegas sebagai frame */
+    display: flex; /* Untuk memudahkan centering iframe jika perlu */
+    justify-content: center;
+    align-items: center;
 }
 
 .video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    /* Atur ukuran iframe agar sedikit lebih kecil dari containernya untuk menunjukkan frame */
+    width: calc(100% - 10px); /* 100% dikurangi 2*border width */
+    height: calc(100% - 10px); /* 100% dikurangi 2*border width */
+    border-radius: 10px; /* Sedikit border-radius agar serasi dengan container */
+    background-color: #000; /* Latar belakang hitam untuk iframe jika videonya belum load */
 }
+
+/* Hiasan hati di sudut frame */
+.video-container::before,
+.video-container::after {
+    content: '💖'; /* Emoji hati */
+    position: absolute;
+    font-size: 1.8em; /* Ukuran hati */
+    z-index: 1; /* Pastikan hati di atas video */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Efek glow pada hati */
+}
+
+.video-container::before {
+    top: -10px; /* Sedikit di luar frame atas */
+    left: -10px; /* Sedikit di luar frame kiri */
+    transform: rotate(-15deg); /* Rotasi sedikit */
+}
+
+.video-container::after {
+    bottom: -10px; /* Sedikit di luar frame bawah */
+    right: -10px; /* Sedikit di luar frame kanan */
+    transform: rotate(15deg); /* Rotasi sedikit */
+}
+
+/* Bisa tambah lebih banyak hati jika ingin */
+.video-container .heart-top-right,
+.video-container .heart-bottom-left {
+    content: '💖';
+    position: absolute;
+    font-size: 1.5em;
+    z-index: 1;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+.video-container .heart-top-right {
+    top: -5px;
+    right: -5px;
+    transform: rotate(20deg);
+}
+
+.video-container .heart-bottom-left {
+    bottom: -5px;
+    left: -5px;
+    transform: rotate(-20deg);
+}
+
 
 .hearts-container {
     position: fixed;
@@ -108,6 +156,7 @@ p {
     height: 100%;
     overflow: hidden;
     z-index: 1;
+    pointer-events: none;
 }
 
 .heart {
@@ -115,11 +164,12 @@ p {
     top: -50px;
     font-size: 2rem;
     animation: fall linear infinite;
+    opacity: 0.8;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
 }
 
 .heart::before {
     content: '❤️';
-    opacity: 0.6;
 }
 
 @keyframes fall {
@@ -128,29 +178,15 @@ p {
     }
 }
 
-/* New popup styles */
-.popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure it's on top of everything */
-}
-
-.popup-content {
-    background: #ffffff;
-    padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px; /* Adjust as needed */
-    width: 90%;
-    position: relative; /* For potential close button positioning */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 
@@ -179,9 +215,26 @@ p {
         font-size: 1em;
     }
 
-    #open-button, #yes-button, #no-button, #ask-button {
+    #open-button {
         font-size: 1em;
         padding: 12px 24px;
     }
-}
 
+    /* Sesuaikan ukuran hati di frame untuk layar kecil */
+    .video-container::before,
+    .video-container::after {
+        font-size: 1.5em;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+    }
+    .video-container .heart-top-right,
+    .video-container .heart-bottom-left {
+        font-size: 1.2em;
+        top: -3px;
+        right: -3px;
+        bottom: -3px;
+        left: -3px;
+    }
+}

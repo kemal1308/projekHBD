@@ -1,99 +1,100 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Selamat Ulang Tahun, Babyy!</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Babyy!</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <audio id="background-music" loop>
-    <source src="how-deep-is-your-love.mp3" type="audio/mpeg" />
-    Browser kamu tidak mendukung elemen audio.
-  </audio>
 
-  <div class="hearts-container"></div>
+    <audio id="background-music" loop>
+        <source src="how-deep-is-your-love.mp3" type="audio/mpeg">
+        Browser kamu tidak mendukung elemen audio.
+    </audio>
 
-  <div class="card">
-    <div id="intro">
-      <h1>Untuk Kamu yang Paling Spesial,</h1>
-      <p>Shasha Tersayang</p>
-      <button id="open-popup-button">Moi sayaaang aku enggaa?</button>     </div>
+    <audio id="click-sound">
+        <source src="pop.mp3" type="audio/mpeg"> Browser kamu tidak mendukung elemen audio.
+    </audio>
 
-        <div id="popup" class="popup" style="display: none;">
-      <div class="popup-content">
-        <h3>Babyy sayaaang moii enggaa?</h3>         <button id="yes-button">akuu sayang banget samaa moi 💖</button>
-        <button id="no-button" disabled>g 🙅‍♀️</button>
-      </div>
-    </div>
+    <div class="hearts-container"></div>
 
-    <div id="content" style="display: none;">
-      <h2>Selamat Ulang Tahun, Babyy! ❤️</h2>
-      <p class="message">
-        Semoga di hari yang spesial ini, kamu selalu diberikan kebahagiaan, kesehatan, dan semua yang terbaik.
-        Video ini mungkin sederhana, tapi dibuat dengan segenap cinta untukmu.
-      </p>
+    <div class="card">
+        <div id="intro">
+            <h1>Untuk Kamu yang Paling Spesial,</h1>
+            <p>Shasha Tersayang</p>
+            <button id="open-button">🎁 Buka Kado Spesial Untukmu 🎁</button>
+        </div>
 
-      <div class="video-container">
-        <iframe
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
+        <div id="content" style="display: none;">
+            <h2 id="birthday-greeting">Selamat Ulang Tahun, Babyy! ❤️</h2>
+            <p class="message">Semoga di hari yang spesial ini, kamu selalu diberikan kebahagiaan, kesehatan, dan semua yang terbaik. Video ini mungkin sederhana, tapi dibuat dengan penuh cinta.</p>
 
-      <p class="message">Aku harap kamu suka. I love you more than words can say.</p>
-      <h3>Dari lubuk hati terdalam, <br /> Moi yang kamu sayang</h3>
-    </div>
-  </div>
+            <div class="video-container">
+                <iframe width="560" height="315"
+                    src="https://www.youtube.com/embed/AZvh1eC7l0s"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                </div>
 
-  <script>
-    const openPopupButton = document.getElementById('open-popup-button'); // Renamed from ask-button
-    const popup = document.getElementById('popup');
-    const yesButton = document.getElementById('yes-button');
-    const noButton = document.getElementById('no-button');
-    const introDiv = document.getElementById('intro');
-    const contentDiv = document.getElementById('content');
-    const backgroundMusic = document.getElementById('background-music');
+            <p class="message">Aku harap kamu suka, Babyy. Biar kamu tau kalau aku sayang banget sama kamu.</p>
+            <h3>Dari lubuk hati yang terdalam, <br> Moi tercinta</h3>
+        </div>
+    </div>
 
-    openPopupButton.addEventListener('click', () => { // Event listener for the new button
-      popup.style.display = 'flex'; // Use flex to center popup content
-    });
+    <script>
+        const openButton = document.getElementById('open-button');
+        const introDiv = document.getElementById('intro');
+        const contentDiv = document.getElementById('content');
+        const backgroundMusic = document.getElementById('background-music');
+        const clickSound = document.getElementById('click-sound'); // Get the new sound element
+        const birthdayGreeting = document.getElementById('birthday-greeting'); // Get the h2 element
 
-    yesButton.addEventListener('click', () => {
-      popup.style.display = 'none';
-      backgroundMusic.play();
-      confetti({
-        particleCount: 150,
-        spread: 120,
-        origin: { y: 0.6 },
-        colors: ['#ec407a', '#fce4ec', '#ffffff']
-      });
-      setTimeout(() => {
-        introDiv.style.display = 'none';
-        contentDiv.style.display = 'block';
-      }, 300);
-    });
+        openButton.addEventListener('click', function() {
+            // Play background music
+            backgroundMusic.play().catch(e => console.log("Background music play failed:", e)); // Add catch for autoplay policy
 
-    // Note: The 'noButton' is currently disabled and doesn't have an action.
-    // If you want it to do something, you'll need to add an event listener here.
+            // Play click sound
+            clickSound.play().catch(e => console.log("Click sound play failed:", e)); // Add catch for autoplay policy
 
+            // Enhanced Confetti effect
+            confetti({
+                particleCount: 200, // More particles
+                spread: 150, // Wider spread
+                origin: { y: 0.6, x: 0.5 }, // From the center
+                colors: ['#ec407a', '#fce4ec', '#ffffff', '#ffd700', '#ff69b4'], // More colors including gold and hot pink
+                shapes: ['circle', 'square', 'star'], // Different shapes
+                scalar: 1.2 // Larger particles
+            });
 
-    // Animasi hati
-    const heartsContainer = document.querySelector('.hearts-container');
-    for (let i = 0; i < 30; i++) {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-      heartsContainer.appendChild(heart);
-    }
-  </script>
+            // Sembunyikan intro dan tampilkan konten setelah jeda singkat
+            setTimeout(() => {
+                introDiv.style.display = 'none';
+                contentDiv.style.display = 'block';
+                // Trigger animation for h2
+                birthdayGreeting.style.opacity = '1'; // Make it visible to start animation
+            }, 300);
+        });
+
+        // Membuat animasi hati berjatuhan
+        const heartsContainer = document.querySelector('.hearts-container');
+        for (let i = 0; i < 30; i++) { // Increased number of hearts
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.animationDelay = Math.random() * -5 + 's'; // Stagger the start of hearts
+            heart.style.fontSize = Math.random() * 1 + 1.5 + 'rem'; // Vary heart sizes
+            heartsContainer.appendChild(heart);
+        }
+    </script>
 </body>
 </html>
